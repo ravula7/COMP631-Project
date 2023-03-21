@@ -1,6 +1,6 @@
 FROM nginx
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY file.mp4 /static/file.mp4
+COPY /webpage /webpage
 
-EXPOSE 80
+EXPOSE 3000
