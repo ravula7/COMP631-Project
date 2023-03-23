@@ -15,7 +15,7 @@ function request ({req='GET', protocol,hostname,port,path,body}, callback) {
         //get response and the end time
         let responseBody = ''
         response.once('readable', () => {
-            times.firstByteAt = process.hrtime()
+            times.firstByteAt = process.hrtime() //can remove
         })
         response.on('data', (bytes) => {responseBody += bytes})
         response.on('end', () => {
