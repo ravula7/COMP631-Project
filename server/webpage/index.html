@@ -2,15 +2,13 @@
 <html>
   <head>
     <title>Hello World!</title>
+    <script src="FileSaver.min.js"></script>
   </head>
   <body>
     <h1>HTML Page with Video and Image</h1>
 
-    <!-- Video element -->
-    <video width="640" height="360" controls preload>
-      <source src="./static/unc.mp4" type="video/mp4" >
-      Your browser does not support the video tag.
-    </video>
+    <!-- Download video button -->
+    <button id="downloadVideo">Download Video</button>
 
     <br><br>
 
@@ -18,5 +16,17 @@
     <img src="./static/unc.jpg" alt="UNC Basketball" width="640" height="360">
     <img src="./static/unc2.jpg" alt="UNC Basketball" width="640" height="360">
     <img src="./static/unc3.jpg" alt="UNC Basketball" width="640" height="360">
+
+    <script>
+      document.getElementById("downloadVideo").addEventListener("click", function() {
+        fetch("./static/unc.mp4")
+          .then(response => response.blob())
+          .then(blob => {
+            const fileName = "UNC_Basketball_Video.mp4";
+            saveAs(blob, fileName);
+          })
+          .catch(error => console.error("Error downloading the video:", error));
+      });
+    </script>
   </body>
 </html>
