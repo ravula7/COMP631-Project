@@ -2,18 +2,49 @@ import {getData} from "./getData"
 import * as firebaseAdmin from 'firebase-admin'
 import key from "../../keys/admin.json"
 
-const http1URL = "https://vm1.research.letswhirl.com:444";
-const http2URL = "https://vm1.research.letswhirl.com:442";
-const http3URL = "https://vm1.research.letswhirl.com";
-const forceHTTP3URL = "https://vm1.research.letswhirl.com/ping";
+const http1URLs = [
+    "https://vm1.research.letswhirl.com:444",
+    "https://vm2.research.letswhirl.com:444",
+    "https://vm3.research.letswhirl.com:444",
+    "https://vm4.research.letswhirl.com:444",
+    "https://vm5.research.letswhirl.com:444",
+    "https://vm6.research.letswhirl.com:444",
+    "https://vm7.research.letswhirl.com:444",
+];
+const http2URLs = [
+    "https://vm1.research.letswhirl.com:442",
+    "https://vm2.research.letswhirl.com:442",
+    "https://vm3.research.letswhirl.com:442",
+    "https://vm4.research.letswhirl.com:442",
+    "https://vm5.research.letswhirl.com:442",
+    "https://vm6.research.letswhirl.com:442",
+    "https://vm7.research.letswhirl.com:442",
+]
+const http3URLs = [
+    "https://vm1.research.letswhirl.com",
+    "https://vm2.research.letswhirl.com",
+    "https://vm3.research.letswhirl.com",
+    "https://vm4.research.letswhirl.com",
+    "https://vm5.research.letswhirl.com",
+    "https://vm6.research.letswhirl.com",
+    "https://vm7.research.letswhirl.com",
+]
+const forceHTTP3URLs = [
+    "https://vm1.research.letswhirl.com/ping",
+    "https://vm2.research.letswhirl.com/ping",
+    "https://vm3.research.letswhirl.com/ping",
+    "https://vm4.research.letswhirl.com/ping",
+    "https://vm5.research.letswhirl.com/ping",
+    "https://vm6.research.letswhirl.com/ping",
+    "https://vm7.research.letswhirl.com/ping",
+];
 
 (async () => {
     const currentTime = Date.now().toString()
-    const getHttp1Results = () => getData({ url : http1URL});
-    const getHttp2Results = () => getData({url: http2URL});
-    const getHttp3Results = () => getData({url: http3URL, forceHTTP3URL});
-    const funcs = [getHttp1Results, getHttp2Results, getHttp3Results]
-    let run = 0
+    const getHttp1Results = http1URLs.map(url => async () => getData({ url }));
+    const getHttp2Results = http2URLs.map(url => async () => getData({url}));
+    const getHttp3Results = http3URLs.map((url, index) => async () => getData({url, forceHTTP3URL: forceHTTP3URLs[index]}));
+    const funcs = [getHttp1Results, getHttp2Results, getHttp3Results].flat()
     const results : {
         [key: string]: {
             url: string,
@@ -35,22 +66,37 @@ const forceHTTP3URL = "https://vm1.research.letswhirl.com/ping";
             lossRate: string | undefined
         }[];
     } = {}
-    for (const f of funcs) {
-        const r = await f()
-        switch (run) {
-            case 0:
-                results["http1Results"] = r
-                break;
-            case 1:
-                results["http2Results"] = r
-                break;
-            case 2:
-                results["http3Results"] = r
-                break;
-        }
-        run++;
-        await new Promise(resolve => setTimeout(resolve, 10000));
+    for (const f of getHttp1Results) {
+        const [data, url] = await f()
+        results[`http1-${url}`] = data
+        await new Promise(resolve => setTimeout(resolve, 2000));
     }
+    for (const f of getHttp2Results) {
+        const [data, url] = await f()
+        results[`http2-${url}`] = data
+        await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+    for (const f of getHttp3Results) {
+        const [data, url] = await f()
+        results[`http3-${url}`] = data
+        await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+    // for (const f of funcs) {
+    //     const [data, url] = await f()
+    //     switch (run) {
+    //         case 0:
+    //             results["http1Results"] = r
+    //             break;
+    //         case 1:
+    //             results["http2Results"] = r
+    //             break;
+    //         case 2:
+    //             results["http3Results"] = r
+    //             break;
+    //     }
+    //     run++;
+    //     await new Promise(resolve => setTimeout(resolve, 2000));
+    // }
 
     firebaseAdmin.initializeApp({
         credential: firebaseAdmin.credential.cert(key as any),

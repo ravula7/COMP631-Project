@@ -8,7 +8,7 @@ export const getData = async ({
     url: string,
     forceHTTP3URL?: string,
     logActivity?: boolean
-}): Promise<{
+}): Promise<[{
     url: string,
     protocol: string, // HTTP/1.1, HTTP/2, HTTP/2
     timing: {
@@ -26,14 +26,14 @@ export const getData = async ({
         [key: string]: string;
     },
     lossRate: string | undefined
-}[]> => {
+}[], string]> => {
 
-    
+
 
     const log = (...args: string[]) => {
         if (logActivity) console.log(...args)
     }
-    
+
     const getLossRateFromArgs = () => {
         const args = process.argv
         if (args.includes('--loss-rate')) {
@@ -122,5 +122,5 @@ export const getData = async ({
 
 
     await browser.close()
-    return results
+    return [results, url]
 }

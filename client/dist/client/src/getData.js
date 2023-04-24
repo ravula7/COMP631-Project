@@ -155,7 +155,7 @@ var getData = function (_a) {
                     return [4 /*yield*/, browser.close()];
                 case 10:
                     _b.sent();
-                    return [2 /*return*/, results];
+                    return [2 /*return*/, [results, url]];
             }
         });
     });

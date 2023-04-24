@@ -65,50 +65,126 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var getData_1 = require("./getData");
 var firebaseAdmin = __importStar(require("firebase-admin"));
 var admin_json_1 = __importDefault(require("../../keys/admin.json"));
-var http1URL = "https://vm1.research.letswhirl.com:444";
-var http2URL = "https://vm1.research.letswhirl.com:442";
-var http3URL = "https://vm1.research.letswhirl.com";
-var forceHTTP3URL = "https://vm1.research.letswhirl.com/ping";
+var http1URLs = [
+    "https://vm1.research.letswhirl.com:444",
+    "https://vm2.research.letswhirl.com:444",
+    "https://vm3.research.letswhirl.com:444",
+    "https://vm4.research.letswhirl.com:444",
+    "https://vm5.research.letswhirl.com:444",
+    "https://vm6.research.letswhirl.com:444",
+    "https://vm7.research.letswhirl.com:444",
+];
+var http2URLs = [
+    "https://vm1.research.letswhirl.com:442",
+    "https://vm2.research.letswhirl.com:442",
+    "https://vm3.research.letswhirl.com:442",
+    "https://vm4.research.letswhirl.com:442",
+    "https://vm5.research.letswhirl.com:442",
+    "https://vm6.research.letswhirl.com:442",
+    "https://vm7.research.letswhirl.com:442",
+];
+var http3URLs = [
+    "https://vm1.research.letswhirl.com",
+    "https://vm2.research.letswhirl.com",
+    "https://vm3.research.letswhirl.com",
+    "https://vm4.research.letswhirl.com",
+    "https://vm5.research.letswhirl.com",
+    "https://vm6.research.letswhirl.com",
+    "https://vm7.research.letswhirl.com",
+];
+var forceHTTP3URLs = [
+    "https://vm1.research.letswhirl.com/ping",
+    "https://vm2.research.letswhirl.com/ping",
+    "https://vm3.research.letswhirl.com/ping",
+    "https://vm4.research.letswhirl.com/ping",
+    "https://vm5.research.letswhirl.com/ping",
+    "https://vm6.research.letswhirl.com/ping",
+    "https://vm7.research.letswhirl.com/ping",
+];
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var currentTime, getHttp1Results, getHttp2Results, getHttp3Results, funcs, run, results, _i, funcs_1, f, r;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var currentTime, getHttp1Results, getHttp2Results, getHttp3Results, funcs, results, _i, getHttp1Results_1, f, _a, data, url, _b, getHttp2Results_1, f, _c, data, url, _d, getHttp3Results_1, f, _e, data, url;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
             case 0:
                 currentTime = Date.now().toString();
-                getHttp1Results = function () { return (0, getData_1.getData)({ url: http1URL }); };
-                getHttp2Results = function () { return (0, getData_1.getData)({ url: http2URL }); };
-                getHttp3Results = function () { return (0, getData_1.getData)({ url: http3URL, forceHTTP3URL: forceHTTP3URL }); };
-                funcs = [getHttp1Results, getHttp2Results, getHttp3Results];
-                run = 0;
+                getHttp1Results = http1URLs.map(function (url) { return function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+                    return [2 /*return*/, (0, getData_1.getData)({ url: url })];
+                }); }); }; });
+                getHttp2Results = http2URLs.map(function (url) { return function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+                    return [2 /*return*/, (0, getData_1.getData)({ url: url })];
+                }); }); }; });
+                getHttp3Results = http3URLs.map(function (url, index) { return function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+                    return [2 /*return*/, (0, getData_1.getData)({ url: url, forceHTTP3URL: forceHTTP3URLs[index] })];
+                }); }); }; });
+                funcs = [getHttp1Results, getHttp2Results, getHttp3Results].flat();
                 results = {};
-                _i = 0, funcs_1 = funcs;
-                _a.label = 1;
+                _i = 0, getHttp1Results_1 = getHttp1Results;
+                _f.label = 1;
             case 1:
-                if (!(_i < funcs_1.length)) return [3 /*break*/, 5];
-                f = funcs_1[_i];
+                if (!(_i < getHttp1Results_1.length)) return [3 /*break*/, 5];
+                f = getHttp1Results_1[_i];
                 return [4 /*yield*/, f()];
             case 2:
-                r = _a.sent();
-                switch (run) {
-                    case 0:
-                        results["http1Results"] = r;
-                        break;
-                    case 1:
-                        results["http2Results"] = r;
-                        break;
-                    case 2:
-                        results["http3Results"] = r;
-                        break;
-                }
-                run++;
-                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 10000); })];
+                _a = _f.sent(), data = _a[0], url = _a[1];
+                results["http1-".concat(url)] = data;
+                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 2000); })];
             case 3:
-                _a.sent();
-                _a.label = 4;
+                _f.sent();
+                _f.label = 4;
             case 4:
                 _i++;
                 return [3 /*break*/, 1];
             case 5:
+                _b = 0, getHttp2Results_1 = getHttp2Results;
+                _f.label = 6;
+            case 6:
+                if (!(_b < getHttp2Results_1.length)) return [3 /*break*/, 10];
+                f = getHttp2Results_1[_b];
+                return [4 /*yield*/, f()];
+            case 7:
+                _c = _f.sent(), data = _c[0], url = _c[1];
+                results["http2-".concat(url)] = data;
+                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 2000); })];
+            case 8:
+                _f.sent();
+                _f.label = 9;
+            case 9:
+                _b++;
+                return [3 /*break*/, 6];
+            case 10:
+                _d = 0, getHttp3Results_1 = getHttp3Results;
+                _f.label = 11;
+            case 11:
+                if (!(_d < getHttp3Results_1.length)) return [3 /*break*/, 15];
+                f = getHttp3Results_1[_d];
+                return [4 /*yield*/, f()];
+            case 12:
+                _e = _f.sent(), data = _e[0], url = _e[1];
+                results["http3-".concat(url)] = data;
+                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 2000); })];
+            case 13:
+                _f.sent();
+                _f.label = 14;
+            case 14:
+                _d++;
+                return [3 /*break*/, 11];
+            case 15:
+                // for (const f of funcs) {
+                //     const [data, url] = await f()
+                //     switch (run) {
+                //         case 0:
+                //             results["http1Results"] = r
+                //             break;
+                //         case 1:
+                //             results["http2Results"] = r
+                //             break;
+                //         case 2:
+                //             results["http3Results"] = r
+                //             break;
+                //     }
+                //     run++;
+                //     await new Promise(resolve => setTimeout(resolve, 2000));
+                // }
                 firebaseAdmin.initializeApp({
                     credential: firebaseAdmin.credential.cert(admin_json_1.default),
                 });
@@ -118,8 +194,8 @@ var forceHTTP3URL = "https://vm1.research.letswhirl.com/ping";
                     // console.log("HTTP2 Results: ", http2Results)
                     // console.log("HTTP1 Results: ", http1Results)
                 ];
-            case 6:
-                _a.sent();
+            case 16:
+                _f.sent();
                 return [2 /*return*/];
         }
     });
