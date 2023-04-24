@@ -28,8 +28,6 @@ export const getData = async ({
     lossRate: string | undefined
 }[], string]> => {
 
-
-
     const log = (...args: string[]) => {
         if (logActivity) console.log(...args)
     }
@@ -43,7 +41,7 @@ export const getData = async ({
         }
     }
 
-    if (process.argv.includes('--log')) {
+    if (process.argv.includes('--log-activity')) {
         logActivity = true
     }
 
