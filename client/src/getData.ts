@@ -43,6 +43,10 @@ export const getData = async ({
         }
     }
 
+    if (process.argv.includes('--log')) {
+        logActivity = true
+    }
+
     const browser = await firefox.launch()
     const context = await browser.newContext({
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29+HTTP/3',
