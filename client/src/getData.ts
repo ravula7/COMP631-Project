@@ -34,14 +34,12 @@ export const getData = async ({
         if (logActivity) console.log(...args)
     }
 
-    const getLossRateFromArgs = () => {
+    const getLossRateFromArgs = (): string | null => {
         const args = process.argv
         if (args.includes('--loss-rate')) {
             const index = args.indexOf('--loss-rate')
             const lossRate = args[index + 1]
-            if (lossRate) {
-                return lossRate
-            }
+            return lossRate || null
         }
     }
 
@@ -78,7 +76,7 @@ export const getData = async ({
         headers: {
             [key: string]: string;
         },
-        lossRate: string | undefined
+        lossRate: string | null
     }[] = []
 
     page.on('request', (request) => {
