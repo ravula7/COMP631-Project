@@ -24,11 +24,25 @@ export const getData = async ({
     },
     headers: {
         [key: string]: string;
-    }
+    },
+    lossRate: string | undefined
 }[]> => {
+
+    
 
     const log = (...args: string[]) => {
         if (logActivity) console.log(...args)
+    }
+    
+    const getLossRateFromArgs = () => {
+        const args = process.argv
+        if (args.includes('--loss-rate')) {
+            const index = args.indexOf('--loss-rate')
+            const lossRate = args[index + 1]
+            if (lossRate) {
+                return lossRate
+            }
+        }
     }
 
     const browser = await firefox.launch()
@@ -62,7 +76,8 @@ export const getData = async ({
         },
         headers: {
             [key: string]: string;
-        }
+        },
+        lossRate: string | undefined
     }[] = []
 
     page.on('request', (request) => {
@@ -86,7 +101,8 @@ export const getData = async ({
             url,
             protocol,
             timing,
-            headers
+            headers,
+            lossRate: getLossRateFromArgs()
         })
     });
 

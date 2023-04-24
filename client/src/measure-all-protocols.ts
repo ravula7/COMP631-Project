@@ -31,7 +31,8 @@ const forceHTTP3URL = "https://vm1.research.letswhirl.com/ping";
             },
             headers: {
                 [key: string]: string;
-            }
+            },
+            lossRate: string | undefined
         }[];
     } = {}
     for (const f of funcs) {

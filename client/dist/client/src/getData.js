@@ -41,7 +41,7 @@ var playwright_1 = require("playwright");
 var getData = function (_a) {
     var url = _a.url, forceHTTP3URL = _a.forceHTTP3URL, logActivity = _a.logActivity;
     return __awaiter(void 0, void 0, void 0, function () {
-        var log, browser, context, page, reqCount, resCount, waitUntilAllRequestsFinished, results, openPage;
+        var log, getLossRateFromArgs, browser, context, page, reqCount, resCount, waitUntilAllRequestsFinished, results, openPage;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -52,6 +52,16 @@ var getData = function (_a) {
                         }
                         if (logActivity)
                             console.log.apply(console, args);
+                    };
+                    getLossRateFromArgs = function () {
+                        var args = process.argv;
+                        if (args.includes('--loss-rate')) {
+                            var index = args.indexOf('--loss-rate');
+                            var lossRate = args[index + 1];
+                            if (lossRate) {
+                                return lossRate;
+                            }
+                        }
                     };
                     return [4 /*yield*/, playwright_1.firefox.launch()];
                 case 1:
@@ -108,7 +118,8 @@ var getData = function (_a) {
                                         url: url,
                                         protocol: protocol,
                                         timing: timing,
-                                        headers: headers
+                                        headers: headers,
+                                        lossRate: getLossRateFromArgs()
                                     });
                                     return [2 /*return*/];
                             }
