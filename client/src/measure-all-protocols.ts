@@ -93,17 +93,17 @@ const forceHTTP3URLs = [
     for (const f of getHttp1Results) {
         const [data, url] = await f()
         results[`http1-${url}`] = data
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
     for (const f of getHttp2Results) {
         const [data, url] = await f()
         results[`http2-${url}`] = data
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
     for (const f of getHttp3Results) {
         const [data, url] = await f()
         results[`http3-${url}`] = data
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
     // for (const f of funcs) {
     //     const [data, url] = await f()
