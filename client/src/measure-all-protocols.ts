@@ -10,6 +10,12 @@ const http1URLs = [
     "https://vm5.research.letswhirl.com:444",
     "https://vm6.research.letswhirl.com:444",
     "https://vm7.research.letswhirl.com:444",
+    "https://vm8.research.letswhirl.com:444",
+    "https://vm9.research.letswhirl.com:444",
+    "https://vm10.research.letswhirl.com:444",
+    "https://vm11.research.letswhirl.com:444",
+    "https://vm12.research.letswhirl.com:444",
+    "https://vm13.research.letswhirl.com:444",
 ];
 const http2URLs = [
     "https://vm1.research.letswhirl.com:442",
@@ -19,6 +25,12 @@ const http2URLs = [
     "https://vm5.research.letswhirl.com:442",
     "https://vm6.research.letswhirl.com:442",
     "https://vm7.research.letswhirl.com:442",
+    "https://vm8.research.letswhirl.com:442",
+    "https://vm9.research.letswhirl.com:442",
+    "https://vm10.research.letswhirl.com:442",
+    "https://vm11.research.letswhirl.com:442",
+    "https://vm12.research.letswhirl.com:442",
+    "https://vm13.research.letswhirl.com:442",
 ]
 const http3URLs = [
     "https://vm1.research.letswhirl.com",
@@ -28,6 +40,12 @@ const http3URLs = [
     "https://vm5.research.letswhirl.com",
     "https://vm6.research.letswhirl.com",
     "https://vm7.research.letswhirl.com",
+    "https://vm8.research.letswhirl.com",
+    "https://vm9.research.letswhirl.com",
+    "https://vm10.research.letswhirl.com",
+    "https://vm11.research.letswhirl.com",
+    "https://vm12.research.letswhirl.com",
+    "https://vm13.research.letswhirl.com",
 ]
 const forceHTTP3URLs = [
     "https://vm1.research.letswhirl.com/ping",
@@ -37,6 +55,12 @@ const forceHTTP3URLs = [
     "https://vm5.research.letswhirl.com/ping",
     "https://vm6.research.letswhirl.com/ping",
     "https://vm7.research.letswhirl.com/ping",
+    "https://vm8.research.letswhirl.com/ping",
+    "https://vm9.research.letswhirl.com/ping",
+    "https://vm10.research.letswhirl.com/ping",
+    "https://vm11.research.letswhirl.com/ping",
+    "https://vm12.research.letswhirl.com/ping",
+    "https://vm13.research.letswhirl.com/ping",
 ];
 
 (async () => {
