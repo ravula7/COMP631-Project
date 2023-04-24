@@ -31,7 +31,6 @@ const puppeteer = require('puppeteer');
 
   // Navigate to the web page and wait for it to load completely
   await page.goto('https://vm1.research.letswhirl.com:443', { waitUntil: 'networkidle0' });
-  await page.goto('https://vm1.research.letswhirl.com:443', { waitUntil: 'networkidle0' });
 
   // Ensure all video objects are loaded in full
   await page.evaluate(() => {
