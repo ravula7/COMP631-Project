@@ -90,9 +90,9 @@ const forceHTTP3URLs = [
             lossRate: string | undefined
         }[];
     } = {}
-    for (const f of getHttp1Results) {
+    for (const f of getHttp3Results) {
         const [data, url] = await f()
-        results[`http1-${url}`] = data
+        results[`http3-${url}`] = data
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
     for (const f of getHttp2Results) {
@@ -100,19 +100,21 @@ const forceHTTP3URLs = [
         results[`http2-${url}`] = data
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
-    for (const f of getHttp3Results) {
+    for (const f of getHttp1Results) {
         const [data, url] = await f()
-        results[`http3-${url}`] = data
+        results[`http1-${url}`] = data
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
+    
+    
 
     const logResults = () => {
         const http1Keys = Object.keys(results).filter(key => key.startsWith("http1"))
         const http2Keys = Object.keys(results).filter(key => key.startsWith("http2"))
         const http3Keys = Object.keys(results).filter(key => key.startsWith("http3"))
-        const http1Results = http1URLs.map(k => results[k])
-        const http2Results = http2URLs.map(k => results[k])
-        const http3Results = http3URLs.map(k => results[k])
+        const http1Results = http1Keys.map(k => results[k])
+        const http2Results = http2Keys.map(k => results[k])
+        const http3Results = http3Keys.map(k => results[k])
         let aggregateResults: {
             [url: string]: {
                 http1: string,
@@ -160,7 +162,12 @@ const forceHTTP3URLs = [
 
         http1Results.forEach(result => {
             result.forEach(result => {
-                const {url} = result
+                let {url} = result
+                url = url.replace(":444", "").replace(":442", "")
+                if (url.endsWith("/")) {
+                    // remove trailing slash
+                    url = url.slice(0, -1)
+                }
                 const responseTime: number = getRealResponseTime(result)
                 if (aggregateResults[url]) {
                     aggregateResults[url].http1 = responseTime.toString()
@@ -175,14 +182,19 @@ const forceHTTP3URLs = [
         })
         http2Results.forEach(result => {
             result.forEach(result => {
-                const {url} = result
+                let {url} = result
+                url = url.replace(":444", "").replace(":442", "")
+                if (url.endsWith("/")) {
+                    // remove trailing slash
+                    url = url.slice(0, -1)
+                }
                 const responseTime: number = getRealResponseTime(result)
                 if (aggregateResults[url]) {
-                    aggregateResults[url].http1 = responseTime.toString()
+                    aggregateResults[url].http2 = responseTime.toString()
                 } else {
                     aggregateResults[url] = {
-                        http1: responseTime.toString(),
-                        http2: "",
+                        http1: "",
+                        http2: responseTime.toString(),
                         http3: "",
                     }
                 }
@@ -190,20 +202,33 @@ const forceHTTP3URLs = [
         })
         http3Results.forEach(result => {
             result.forEach(result => {
-                const {url} = result
+                let {url} = result
+                url = url.replace(":444", "").replace(":442", "")
+                if (url.endsWith("/")) {
+                    // remove trailing slash
+                    url = url.slice(0, -1)
+                }
                 const responseTime: number = getRealResponseTime(result)
                 if (aggregateResults[url]) {
-                    aggregateResults[url].http1 = responseTime.toString()
+                    aggregateResults[url].http3 = responseTime.toString()
                 } else {
                     aggregateResults[url] = {
-                        http1: responseTime.toString(),
+                        http1: "",
                         http2: "",
-                        http3: "",
+                        http3: responseTime.toString(),
                     }
                 }
             })
         })
-        console.log(aggregateResults)
+
+        const onlyShowMedia = process.argv.includes('-m')
+
+        const getMediaEntries = () => {
+            const keys = Object.keys(aggregateResults).filter(key => key.includes("mp4"))
+            return keys.map(k => aggregateResults[k])
+        }
+
+        console.log(onlyShowMedia ? getMediaEntries() : aggregateResults)
     }
     // for (const f of funcs) {
     //     const [data, url] = await f()

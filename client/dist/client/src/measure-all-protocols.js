@@ -73,6 +73,12 @@ var http1URLs = [
     "https://vm5.research.letswhirl.com:444",
     "https://vm6.research.letswhirl.com:444",
     "https://vm7.research.letswhirl.com:444",
+    "https://vm8.research.letswhirl.com:444",
+    "https://vm9.research.letswhirl.com:444",
+    "https://vm10.research.letswhirl.com:444",
+    "https://vm11.research.letswhirl.com:444",
+    "https://vm12.research.letswhirl.com:444",
+    "https://vm13.research.letswhirl.com:444",
 ];
 var http2URLs = [
     "https://vm1.research.letswhirl.com:442",
@@ -82,6 +88,12 @@ var http2URLs = [
     "https://vm5.research.letswhirl.com:442",
     "https://vm6.research.letswhirl.com:442",
     "https://vm7.research.letswhirl.com:442",
+    "https://vm8.research.letswhirl.com:442",
+    "https://vm9.research.letswhirl.com:442",
+    "https://vm10.research.letswhirl.com:442",
+    "https://vm11.research.letswhirl.com:442",
+    "https://vm12.research.letswhirl.com:442",
+    "https://vm13.research.letswhirl.com:442",
 ];
 var http3URLs = [
     "https://vm1.research.letswhirl.com",
@@ -91,6 +103,12 @@ var http3URLs = [
     "https://vm5.research.letswhirl.com",
     "https://vm6.research.letswhirl.com",
     "https://vm7.research.letswhirl.com",
+    "https://vm8.research.letswhirl.com",
+    "https://vm9.research.letswhirl.com",
+    "https://vm10.research.letswhirl.com",
+    "https://vm11.research.letswhirl.com",
+    "https://vm12.research.letswhirl.com",
+    "https://vm13.research.letswhirl.com",
 ];
 var forceHTTP3URLs = [
     "https://vm1.research.letswhirl.com/ping",
@@ -100,9 +118,15 @@ var forceHTTP3URLs = [
     "https://vm5.research.letswhirl.com/ping",
     "https://vm6.research.letswhirl.com/ping",
     "https://vm7.research.letswhirl.com/ping",
+    "https://vm8.research.letswhirl.com/ping",
+    "https://vm9.research.letswhirl.com/ping",
+    "https://vm10.research.letswhirl.com/ping",
+    "https://vm11.research.letswhirl.com/ping",
+    "https://vm12.research.letswhirl.com/ping",
+    "https://vm13.research.letswhirl.com/ping",
 ];
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var currentTime, getHttp1Results, getHttp2Results, getHttp3Results, funcs, results, _i, getHttp1Results_1, f, _a, data, url, _b, getHttp2Results_1, f, _c, data, url, _d, getHttp3Results_1, f, _e, data, url;
+    var currentTime, getHttp1Results, getHttp2Results, getHttp3Results, funcs, results, _i, getHttp3Results_1, f, _a, data, url, _b, getHttp2Results_1, f, _c, data, url, _d, getHttp1Results_1, f, _e, data, url, logResults;
     return __generator(this, function (_f) {
         switch (_f.label) {
             case 0:
@@ -118,16 +142,16 @@ var forceHTTP3URLs = [
                 }); }); }; });
                 funcs = [getHttp1Results, getHttp2Results, getHttp3Results].flat();
                 results = {};
-                _i = 0, getHttp1Results_1 = getHttp1Results;
+                _i = 0, getHttp3Results_1 = getHttp3Results;
                 _f.label = 1;
             case 1:
-                if (!(_i < getHttp1Results_1.length)) return [3 /*break*/, 5];
-                f = getHttp1Results_1[_i];
+                if (!(_i < getHttp3Results_1.length)) return [3 /*break*/, 5];
+                f = getHttp3Results_1[_i];
                 return [4 /*yield*/, f()];
             case 2:
                 _a = _f.sent(), data = _a[0], url = _a[1];
-                results["http1-".concat(url)] = data;
-                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 2000); })];
+                results["http3-".concat(url)] = data;
+                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 1000); })];
             case 3:
                 _f.sent();
                 _f.label = 4;
@@ -144,7 +168,7 @@ var forceHTTP3URLs = [
             case 7:
                 _c = _f.sent(), data = _c[0], url = _c[1];
                 results["http2-".concat(url)] = data;
-                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 2000); })];
+                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 1000); })];
             case 8:
                 _f.sent();
                 _f.label = 9;
@@ -152,16 +176,16 @@ var forceHTTP3URLs = [
                 _b++;
                 return [3 /*break*/, 6];
             case 10:
-                _d = 0, getHttp3Results_1 = getHttp3Results;
+                _d = 0, getHttp1Results_1 = getHttp1Results;
                 _f.label = 11;
             case 11:
-                if (!(_d < getHttp3Results_1.length)) return [3 /*break*/, 15];
-                f = getHttp3Results_1[_d];
+                if (!(_d < getHttp1Results_1.length)) return [3 /*break*/, 15];
+                f = getHttp1Results_1[_d];
                 return [4 /*yield*/, f()];
             case 12:
                 _e = _f.sent(), data = _e[0], url = _e[1];
-                results["http3-".concat(url)] = data;
-                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 2000); })];
+                results["http1-".concat(url)] = data;
+                return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 1000); })];
             case 13:
                 _f.sent();
                 _f.label = 14;
@@ -169,6 +193,92 @@ var forceHTTP3URLs = [
                 _d++;
                 return [3 /*break*/, 11];
             case 15:
+                logResults = function () {
+                    var http1Keys = Object.keys(results).filter(function (key) { return key.startsWith("http1"); });
+                    var http2Keys = Object.keys(results).filter(function (key) { return key.startsWith("http2"); });
+                    var http3Keys = Object.keys(results).filter(function (key) { return key.startsWith("http3"); });
+                    var http1Results = http1Keys.map(function (k) { return results[k]; });
+                    var http2Results = http2Keys.map(function (k) { return results[k]; });
+                    var http3Results = http3Keys.map(function (k) { return results[k]; });
+                    var aggregateResults = {};
+                    var getRealResponseTime = function (result) {
+                        var timing = result.timing;
+                        var startTime = timing.startTime, domainLookupStart = timing.domainLookupStart, domainLookupEnd = timing.domainLookupEnd, connectStart = timing.connectStart, secureConnectionStart = timing.secureConnectionStart, connectEnd = timing.connectEnd, requestStart = timing.requestStart, responseStart = timing.responseStart, responseEnd = timing.responseEnd;
+                        var domainTime = (domainLookupEnd - domainLookupStart) || 0;
+                        var connectionTime = (connectEnd - connectStart) || 0;
+                        var realResponseTime = responseEnd - connectionTime - domainTime;
+                        return realResponseTime;
+                    };
+                    http1Results.forEach(function (result) {
+                        result.forEach(function (result) {
+                            var url = result.url;
+                            url = url.replace(":444", "").replace(":442", "");
+                            if (url.endsWith("/")) {
+                                // remove trailing slash
+                                url = url.slice(0, -1);
+                            }
+                            var responseTime = getRealResponseTime(result);
+                            if (aggregateResults[url]) {
+                                aggregateResults[url].http1 = responseTime.toString();
+                            }
+                            else {
+                                aggregateResults[url] = {
+                                    http1: responseTime.toString(),
+                                    http2: "",
+                                    http3: "",
+                                };
+                            }
+                        });
+                    });
+                    http2Results.forEach(function (result) {
+                        result.forEach(function (result) {
+                            var url = result.url;
+                            url = url.replace(":444", "").replace(":442", "");
+                            if (url.endsWith("/")) {
+                                // remove trailing slash
+                                url = url.slice(0, -1);
+                            }
+                            var responseTime = getRealResponseTime(result);
+                            if (aggregateResults[url]) {
+                                aggregateResults[url].http2 = responseTime.toString();
+                            }
+                            else {
+                                aggregateResults[url] = {
+                                    http1: "",
+                                    http2: responseTime.toString(),
+                                    http3: "",
+                                };
+                            }
+                        });
+                    });
+                    http3Results.forEach(function (result) {
+                        result.forEach(function (result) {
+                            var url = result.url;
+                            url = url.replace(":444", "").replace(":442", "");
+                            if (url.endsWith("/")) {
+                                // remove trailing slash
+                                url = url.slice(0, -1);
+                            }
+                            var responseTime = getRealResponseTime(result);
+                            if (aggregateResults[url]) {
+                                aggregateResults[url].http3 = responseTime.toString();
+                            }
+                            else {
+                                aggregateResults[url] = {
+                                    http1: "",
+                                    http2: "",
+                                    http3: responseTime.toString(),
+                                };
+                            }
+                        });
+                    });
+                    var onlyShowMedia = process.argv.includes('-m');
+                    var getMediaEntries = function () {
+                        var keys = Object.keys(aggregateResults).filter(function (key) { return key.includes("mp4"); });
+                        return keys.map(function (k) { return aggregateResults[k]; });
+                    };
+                    console.log(onlyShowMedia ? getMediaEntries() : aggregateResults);
+                };
                 // for (const f of funcs) {
                 //     const [data, url] = await f()
                 //     switch (run) {
@@ -185,17 +295,16 @@ var forceHTTP3URLs = [
                 //     run++;
                 //     await new Promise(resolve => setTimeout(resolve, 2000));
                 // }
+                // ignore undefined values in firestore
                 firebaseAdmin.initializeApp({
                     credential: firebaseAdmin.credential.cert(admin_json_1.default),
                 });
-                return [4 /*yield*/, firebaseAdmin.firestore().collection("results").doc(currentTime).set(results)
-                    // const results = {http1Results, http2Results, http3Results}
-                    // console.log("HTTP3 Results: ", http3Results)
-                    // console.log("HTTP2 Results: ", http2Results)
-                    // console.log("HTTP1 Results: ", http1Results)
-                ];
+                firebaseAdmin.firestore().settings({ ignoreUndefinedProperties: true });
+                return [4 /*yield*/, firebaseAdmin.firestore().collection("results").doc(currentTime).set(results)];
             case 16:
                 _f.sent();
+                if (process.argv.includes('--log-results'))
+                    logResults();
                 return [2 /*return*/];
         }
     });
