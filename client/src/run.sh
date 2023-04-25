@@ -1,55 +1,25 @@
+#!/bin/bash
+
+# Define the node arguments
+
+# Move up one directory and delete any existing network emulation rules
 cd ..
 tc qdisc del dev eth0 root netem
+
+# Run the script with no loss
 echo "Running with no loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 0 --log-results -m
+node ./dist/client/src/measure-all-protocols.js --loss-rate 0 "$@"
 echo "SUCCESS"
+
+# Set up network emulation for each loss rate and run the script
+for loss_rate in 0.1 0.5 1 2 5 10 25 50 75 90; do
+  tc qdisc del dev eth0 root netem
+  tc qdisc add dev eth0 root netem loss "$loss_rate"% 
+
+  echo "Running with $loss_rate% loss"
+  node ./dist/client/src/measure-all-protocols.js --loss-rate "$loss_rate" "$@"
+  echo "SUCCESS"
+done
+
+# Clean up the network emulation rules
 tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 0.1%
-echo "Running with 0.1% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 0.1 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 0.5%
-echo "Running with 0.5% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 0.5 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 1%
-echo "Running with 1% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 1 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 2%
-echo "Running with 2% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 2 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 5%
-echo "Running with 5% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 5 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 10%
-echo "Running with 10% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 10 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 25%
-echo "Running with 25% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 25 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 50%
-echo "Running with 50% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 50 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 75%
-echo "Running with 75% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 75 --log-results -m
-echo "SUCCESS"
-tc qdisc del dev eth0 root netem
-tc qdisc add dev eth0 root netem loss 90%
-echo "Running with 90% loss"
-node ./dist/client/src/measure-all-protocols.js --loss-rate 90 --log-results -m
-echo "SUCCESS"
