@@ -64,7 +64,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var getData_1 = require("./getData");
 var firebaseAdmin = __importStar(require("firebase-admin"));
-var admin_json_1 = __importDefault(require("../../keys/admin.json"));
+var admin_json_1 = __importDefault(require("../keys/admin.json"));
 var http1URLs = [
     "https://vm1.research.letswhirl.com:444",
     "https://vm2.research.letswhirl.com:444",

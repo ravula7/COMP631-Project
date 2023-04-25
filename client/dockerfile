@@ -1,8 +1,17 @@
 FROM ubuntu:latest
 
+WORKDIR /app
+
+# Copy all files from the current directory on the host to the /app directory in the container
+COPY . .
+
 RUN apt-get update && \
     apt-get install -y nano iproute2 iputils-ping curl git && \
     curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
-    apt-get install -y nodejs
+    apt-get install -y nodejs && \
+    apt-get install -y chromium-browser && \
+    npm i && \
+    npx playwright install-deps && \
+    npx playwright install
 
 CMD ["/bin/bash"]
