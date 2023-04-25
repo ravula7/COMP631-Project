@@ -1,0 +1,8 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get install -y nano iproute2 iputils-ping curl git && \
+    curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs
+
+CMD ["/bin/bash"]

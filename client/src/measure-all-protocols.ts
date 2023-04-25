@@ -1,6 +1,6 @@
 import { getData } from "./getData"
 import * as firebaseAdmin from 'firebase-admin'
-import key from "../../keys/admin.json"
+import key from "../keys/admin.json"
 
 const http1URLs = [
     "https://vm1.research.letswhirl.com:444",
